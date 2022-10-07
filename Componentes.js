@@ -24,3 +24,4 @@ const ProductRow = (product) => {
         </table>
     `
   }
+  

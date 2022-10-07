@@ -6,26 +6,23 @@ const historial = document.getElementById('divHistorial');
 const btnAgregar = document.getElementById('btn-agregar');
 const btnBuscar = document.getElementById('btn-buscar');
 const btnListar = document.getElementById('btn-listar');
-const formBuscar = document.getElementById('form-buscar')
+const formBuscar = document.getElementById('form-buscar');
 const formAgregar = document.getElementById('form-agregar');
 const formEliminar = document.getElementById('form-eliminar');
 const containerTabla = document.getElementById('divTabla');
 
-const Validar = (codigo, nombre, cantidad, precio) => {
-    if (codigo === '' || nombre === '' || cantidad === '' || precio === '') {
-        alert('Todos los campos son obligatorios');
-        return;
-    }
-}
+// const Validar = (codigo, nombre, cantidad, precio) => {
+//     if (codigo === '' || nombre === '' || cantidad === '' || precio === '') {
+//         alert('Todos los campos son obligatorios');
+//         return;
+//     }
+// }
 
 btnAgregar.addEventListener('click', () => {
     let codigo = document.getElementById('codigo-p').value;
     let nombre = document.getElementById('nombre-p').value;
     let precio = document.getElementById('precio-p').value;
     let cantidad = document.getElementById('cantidad-p').value;
-
-    //validar
-    Validar(codigo, nombre, cantidad, precio);
     
    //agrega y muestra
     let producto = new Producto(codigo, nombre, cantidad, precio);
@@ -41,7 +38,7 @@ formBuscar.addEventListener('submit', (e) => {
     let codigo = document.getElementById('codigo-b').value;
     let product = inventario.buscarProducto(codigo);
 
-    if (!product) return alert('Producto no encontrado');
+    if (!product) return null;
 
     const bodyTableProducts = document.getElementById('tabla-productos');
     bodyTableProducts.innerHTML = ProductRow(product);
@@ -56,7 +53,7 @@ formEliminar.addEventListener('submit', (e) => {
     let codigo = document.getElementById('codigo-e').value;
 
     if (codigo === '' || inventario.buscarProducto(codigo) === null) 
-        return alert('Todos los campos son obligatorios');
+        return null;
     
     inventario.eliminarProducto(codigo);
     historial.innerHTML += `<p>Se elimino el producto</p>`;
@@ -68,7 +65,7 @@ btnListar.addEventListener('click', (e) => {
     e.preventDefault();
 
     let lista = inventario.listarProductos();
-    if (!lista) return alert('No hay productos en el inventario');
+    if (!lista) return null;
         
     containerTabla.innerHTML = createTable();
     const bodyTableProducts = document.getElementById('tabla-productos');
