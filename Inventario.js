@@ -21,29 +21,24 @@ class Inventario {
         }
     }
 
-    devolverLista() {
-        return this.productos;
-    }
-
     buscarProducto(codigo) {
-        let producto = false;
         let inferior = 0;
         let superior = this.productos.length - 1;
         let centro = Math.floor((inferior + superior) / 2);
+        let resultado = null;
 
         while (inferior <= superior) {
-            if (Number(this.productos[centro].codigo) === Number(codigo)) {
-                producto = this.productos[centro];
-            } else if (Number(this.productos[centro].codigo) < Number(codigo)) {
+            if (this.productos[centro].codigo === codigo) {
+                resultado = this.productos[centro];
+            } else if (this.productos[centro].codigo < codigo) {
                 inferior = centro + 1;
             } else {
                 superior = centro - 1;
+                centro = Math.floor((inferior + superior) / 2);
             }
-            centro = Math.floor((inferior + superior) / 2);
+            return resultado;
         }
-        return producto;
     }
-
 
     agregarProducto(producto) {
         //cambiar forma de agregar producto
@@ -56,8 +51,7 @@ class Inventario {
 
             this.ordenarProductos();
             return true;
-        }
-        
+        }  
     }
 
     eliminar(codigo) {
@@ -76,19 +70,7 @@ class Inventario {
             return false;
         }
     }
-        // for (let i = 0; i < this.productos.length; i++) {
-        //     if (codigo === this.productos[i].codigo) {
-        //         for (let j = i; j < this.productos.length - 1; j++) {
-        //             this.productos[j] = this.productos[j + 1];
-        //         }
-
-        //         this.productos.pop();
-        //     }
-
-        // }
     
-
-
     listarProductos() {
         let lista = '';
         if (this.productos.length > 0) {
@@ -116,5 +98,3 @@ class Inventario {
         return listaInv;
     }
 }
-
-
